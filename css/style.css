@@ -2,6 +2,7 @@ body {
 	background-color: #000000;
 	margin: 0px;
 	overflow: hidden;
+	font-family:"Verdana", Geneva, sans-serif;
 }
 
 #container {
@@ -16,6 +17,24 @@ canvas, #overlay {
 	z-index: 1;
 }
 
+ul {
+    margin: 0.75em 0;
+    padding: 0 1em;
+    list-style: none;
+}
+li:before { 
+    content: "";
+    border-color: transparent #111;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+
 #topbar-container {
 	flex: 1 1;
 	padding: 16px;
@@ -23,15 +42,31 @@ canvas, #overlay {
 
 #topbar {
 	color: #fffff1;
-	text-align: center;
+	text-align: left;
+
 }
 
 #topbar > * {
 	display: inline-block;
 }
 
+#topbar img{
+	width: 208px;
+	height: 35px;
+}
+
+#topbar h1{
+	font-size: 32px;
+	text-transform: uppercase;
+	margin: 10px 10px;
+}
+
+#topbar h4{
+	margin-left: 20px;
+}
+
 #sidebar {
-	flex: 0 1 400px;
+	flex: 0 1 320px;
 	background: white;
 	padding: 16px;
 }
@@ -40,6 +75,8 @@ canvas, #overlay {
 	float: right;
 	cursor: pointer;
 }
+
+
 
 .pointer {
 	cursor: pointer;

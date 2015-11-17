@@ -416,30 +416,31 @@
 				React.createElement(
 					'div',
 					{ id: 'topbar' },
+					React.createElement('img', { src: 'images/ikea360_logo.png', alt: 'ikea logo' }),
 					React.createElement(
-						'h3',
+						'h4',
 						null,
-						rooms[left]
+						'Kitchen'
 					),
 					React.createElement(
-						'h1',
-						{ className: 'pointer', onClick: this.handleLeft },
-						'<'
-					),
-					React.createElement(
-						'h1',
+						'h4',
 						null,
-						rooms[center]
+						'Bedroom'
 					),
 					React.createElement(
-						'h1',
-						{ className: 'pointer', onClick: this.handleRight },
-						'>'
-					),
-					React.createElement(
-						'h3',
+						'h4',
 						null,
-						rooms[right]
+						'Living Room'
+					),
+					React.createElement(
+						'h4',
+						null,
+						'Bathroom'
+					),
+					React.createElement(
+						'h4',
+						null,
+						'Storage'
 					)
 				)
 			);

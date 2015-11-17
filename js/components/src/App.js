@@ -362,11 +362,12 @@ App.Topbar = React.createClass({
 		return (
 			<div id='topbar-container'>
 				<div id='topbar'>
-					<h3>{rooms[left]}</h3>
-					<h1 className='pointer' onClick={this.handleLeft}>&#60;</h1>
-					<h1>{rooms[center]}</h1>
-					<h1 className='pointer' onClick={this.handleRight}>&#62;</h1>
-					<h3>{rooms[right]}</h3>
+					<img src="images/ikea360_logo.png" alt="ikea logo"/>
+					<h4>Kitchen</h4>
+					<h4>Bedroom</h4>
+					<h4>Living Room</h4>
+					<h4>Bathroom</h4>
+					<h4>Storage</h4>
 				</div>
 			</div>
 		)
