@@ -1,0 +1,18 @@
+[
+	{
+		"type": "navigation",
+		"destination": "kitchen",
+		"position": {
+			"x": 400,
+			"y": -200,
+			"z": 200
+		},
+		"scale": {
+			"x": 25,
+			"y": 25,
+			"z": 25
+		},
+		"rotateY": -0.5
+	}
+]
+

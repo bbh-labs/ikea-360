@@ -1,0 +1,46 @@
+body {
+	background-color: #000000;
+	margin: 0px;
+	overflow: hidden;
+}
+
+#container {
+	position: relative;
+}
+
+canvas, #overlay {
+	position: absolute;
+}
+
+#overlay {
+	z-index: 1;
+}
+
+#topbar-container {
+	flex: 1 1;
+	padding: 16px;
+}
+
+#topbar {
+	color: #fffff1;
+	text-align: center;
+}
+
+#topbar > * {
+	display: inline-block;
+}
+
+#sidebar {
+	flex: 0 1 400px;
+	background: white;
+	padding: 16px;
+}
+
+#sidebar-close {
+	float: right;
+	cursor: pointer;
+}
+
+.pointer {
+	cursor: pointer;
+}
