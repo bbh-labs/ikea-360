@@ -108,6 +108,7 @@
 		theta: 0,
 		raycaster: new THREE.Raycaster(),
 		mouse: new THREE.Vector2(),
+		dragging: false,
 		isMousingOverObject: false,
 		getInitialState: function getInitialState() {
 			return { roomIndex: 1 };
@@ -181,10 +182,32 @@
 			if (this.isUserInteracting === true) {
 				this.lon = (this.onPointerDownX - event.clientX) * 0.1 + this.onPointerDownLon;
 				this.lat = (event.clientY - this.onPointerDownY) * 0.1 + this.onPointerDownLat;
+				this.dragging = true;
 			}
 		},
 		onDocumentMouseUp: function onDocumentMouseUp(event) {
 			this.isUserInteracting = false;
+
+			if (!this.dragging) {
+				this.raycaster.setFromCamera(this.mouse, this.camera);
+				var intersects = this.raycaster.intersectObjects(this.scene.children, true).map(function (val) {
+					return val.object;
+				});
+
+				for (var i in intersects) {
+					if (intersects[i].name == 'navigation') {
+						this.setState({ roomIndex: rooms.indexOf(intersects[i].destination) });
+						break;
+					} else if (intersects[i].name == 'product') {
+						dispatcher.dispatch({ type: 'clickedProduct', product: intersects[i].product });
+						return;
+					}
+				}
+
+				dispatcher.dispatch({ type: 'clickedProduct', product: null });
+			}
+
+			this.dragging = false;
 		},
 		onDocumentMouseWheel: function onDocumentMouseWheel(event) {
 			// WebKit
@@ -199,22 +222,6 @@
 					}
 
 			this.camera.updateProjectionMatrix();
-		},
-		onDocumentMouseDblClick: function onDocumentMouseDblClick(event) {
-			this.raycaster.setFromCamera(this.mouse, this.camera);
-			var intersects = this.raycaster.intersectObjects(this.scene.children, true).map(function (val) {
-				return val.object;
-			});
-
-			for (var i in intersects) {
-				if (intersects[i].name == 'navigation') {
-					this.setState({ roomIndex: rooms.indexOf(intersects[i].destination) });
-					break;
-				} else if (intersects[i].name == 'product') {
-					dispatcher.dispatch({ type: 'clickedProduct', product: intersects[i].product });
-					break;
-				}
-			}
 		},
 		animate: function animate() {
 			requestAnimationFrame(this.animate);
