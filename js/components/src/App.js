@@ -84,7 +84,7 @@ App.Viewer = React.createClass({
 		document.addEventListener('mouseup', this.onDocumentMouseUp, false);
 		//document.addEventListener('mousewheel', this.onDocumentMouseWheel, false);
 		document.addEventListener('dblclick', this.onDocumentMouseDblClick, false);
-		document.addEventListener('MozMousePixelScroll', this.onDocumentMouseWheel, false);
+		//document.addEventListener('MozMousePixelScroll', this.onDocumentMouseWheel, false);
 
 		this.listenerID = dispatcher.register(function(payload) {
 			switch (payload.type) {
