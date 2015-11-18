@@ -19,11 +19,37 @@ objLoader.load(
 
 var App = React.createClass({
 	render: function() {
+		var started = this.state.started;
+		return (
+			<div>
+				{ started ? <App.Viewer /> : null }
+				<App.Intro started={started} />
+			</div>
+		)
+	},
+	getInitialState: function() {
+		return { started: false };
+	},
+	componentDidMount: function() {
+		this.listenerID = dispatcher.register(function(payload) {
+			switch (payload.type) {
+			case 'start':
+				this.setState({ started: true });
+				break;
+			}
+		}.bind(this));
+	},
+	componentWillUnmount: function() {
+		dispatcher.unregister(this.listenerID);
+	},
+});
+
+App.Viewer = React.createClass({
+	render: function() {
 		return (
 			<div ref='container'>
 				<canvas id='canvas'></canvas>
-				<App.Overlay room={this.state.roomIndex} ref='overlay' />
-				<App.Intro ref='intro' />
+				<App.Viewer.Overlay room={this.state.roomIndex} ref='overlay' />
 			</div>
 		)
 	},
@@ -336,12 +362,12 @@ var App = React.createClass({
 	},
 });
 
-App.Overlay = React.createClass({
+App.Viewer.Overlay = React.createClass({
 	render: function() {
 		return (
 			<div id='overlay' ref='overlay' className='flex row'>
-				<App.Topbar room={this.props.room} />
-				<App.Sidebar />
+				<App.Viewer.Topbar room={this.props.room} />
+				<App.Viewer.Sidebar />
 			</div>
 		)
 	},
@@ -352,7 +378,7 @@ App.Overlay = React.createClass({
 	},
 });
 
-App.Topbar = React.createClass({
+App.Viewer.Topbar = React.createClass({
 	render: function() {
 		return (
 			<div id='topbar'>
@@ -371,7 +397,7 @@ App.Topbar = React.createClass({
 	},
 });
 
-App.Sidebar = React.createClass({
+App.Viewer.Sidebar = React.createClass({
 	render: function() {
 		var product = this.state.product;
 		if (!product) {
@@ -417,18 +443,15 @@ App.Sidebar = React.createClass({
 App.Intro = React.createClass({
 	render: function() {
 		return (
-			<div id='intro' ref='intro' className={cx('flex column align-center justify-center', this.state.disabled && 'disabled')}>
+			<div id='intro' ref='intro' className={cx('flex column align-center justify-center', this.props.started && 'disabled')}>
 				<h3>Welcome to</h3>
 				<h1>IKEA FIRST 360 STORE</h1>
-				<button onClick={this.disableIntro}>Start</button>
+				<button onClick={this.start}>Start</button>
 			</div>
 		)
 	},
-	getInitialState: function() {
-		return { disabled: false };
-	},
-	disableIntro: function() {
-		this.setState({ disabled: true });
+	start: function() {
+		dispatcher.dispatch({ type: 'start' });
 	},
 });
 

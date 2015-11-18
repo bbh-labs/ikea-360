@@ -20,12 +20,40 @@ var App = React.createClass({
 	displayName: 'App',
 
 	render: function render() {
+		var started = this.state.started;
+		return React.createElement(
+			'div',
+			null,
+			started ? React.createElement(App.Viewer, null) : null,
+			React.createElement(App.Intro, { started: started })
+		);
+	},
+	getInitialState: function getInitialState() {
+		return { started: false };
+	},
+	componentDidMount: function componentDidMount() {
+		this.listenerID = dispatcher.register((function (payload) {
+			switch (payload.type) {
+				case 'start':
+					this.setState({ started: true });
+					break;
+			}
+		}).bind(this));
+	},
+	componentWillUnmount: function componentWillUnmount() {
+		dispatcher.unregister(this.listenerID);
+	}
+});
+
+App.Viewer = React.createClass({
+	displayName: 'Viewer',
+
+	render: function render() {
 		return React.createElement(
 			'div',
 			{ ref: 'container' },
 			React.createElement('canvas', { id: 'canvas' }),
-			React.createElement(App.Overlay, { room: this.state.roomIndex, ref: 'overlay' }),
-			React.createElement(App.Intro, { ref: 'intro' })
+			React.createElement(App.Viewer.Overlay, { room: this.state.roomIndex, ref: 'overlay' })
 		);
 	},
 	lon: 0,
@@ -337,15 +365,15 @@ var App = React.createClass({
 	}
 });
 
-App.Overlay = React.createClass({
+App.Viewer.Overlay = React.createClass({
 	displayName: 'Overlay',
 
 	render: function render() {
 		return React.createElement(
 			'div',
 			{ id: 'overlay', ref: 'overlay', className: 'flex row' },
-			React.createElement(App.Topbar, { room: this.props.room }),
-			React.createElement(App.Sidebar, null)
+			React.createElement(App.Viewer.Topbar, { room: this.props.room }),
+			React.createElement(App.Viewer.Sidebar, null)
 		);
 	},
 	resize: function resize() {
@@ -355,7 +383,7 @@ App.Overlay = React.createClass({
 	}
 });
 
-App.Topbar = React.createClass({
+App.Viewer.Topbar = React.createClass({
 	displayName: 'Topbar',
 
 	render: function render() {
@@ -378,7 +406,7 @@ App.Topbar = React.createClass({
 	}
 });
 
-App.Sidebar = React.createClass({
+App.Viewer.Sidebar = React.createClass({
 	displayName: 'Sidebar',
 
 	render: function render() {
@@ -456,7 +484,7 @@ App.Intro = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			{ id: 'intro', ref: 'intro', className: cx('flex column align-center justify-center', this.state.disabled && 'disabled') },
+			{ id: 'intro', ref: 'intro', className: cx('flex column align-center justify-center', this.props.started && 'disabled') },
 			React.createElement(
 				'h3',
 				null,
@@ -469,16 +497,13 @@ App.Intro = React.createClass({
 			),
 			React.createElement(
 				'button',
-				{ onClick: this.disableIntro },
+				{ onClick: this.start },
 				'Start'
 			)
 		);
 	},
-	getInitialState: function getInitialState() {
-		return { disabled: false };
-	},
-	disableIntro: function disableIntro() {
-		this.setState({ disabled: true });
+	start: function start() {
+		dispatcher.dispatch({ type: 'start' });
 	}
 });
 
