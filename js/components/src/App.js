@@ -36,6 +36,9 @@ var App = React.createClass({
 			case 'start':
 				this.setState({ started: true });
 				break;
+			case 'backToHome':
+				this.setState({ started: false });
+				break;
 			}
 		}.bind(this));
 	},
@@ -389,7 +392,7 @@ App.Viewer.Topbar = React.createClass({
 	render: function() {
 		return (
 			<div id='topbar'>
-				<img src='images/ikea360_logo.png' alt='ikea logo'/>
+				<img className='logo' src='images/ikea360_logo.png' alt='ikea logo' onClick={this.backToHome} />
 				{
 					rooms.map(function(room, i) {
 						var active = rooms[this.props.room] == room;
@@ -401,6 +404,9 @@ App.Viewer.Topbar = React.createClass({
 	},
 	changeRoom: function(room) {
 		dispatcher.dispatch({ type: 'gotoRoom', room: room });
+	},
+	backToHome: function() {
+		dispatcher.dispatch({ type: 'backToHome' });
 	},
 });
 
@@ -453,7 +459,7 @@ App.Intro = React.createClass({
 			<div id='intro' ref='intro' className={cx('flex column align-center justify-center', this.props.started && 'disabled')}>
 				<h3>Welcome to</h3>
 				<h1>IKEA FIRST 360 STORE</h1>
-				<button onClick={this.start}>Start</button>
+				<button onClick={this.start}>Enter</button>
 			</div>
 		)
 	},

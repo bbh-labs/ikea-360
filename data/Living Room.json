@@ -5,10 +5,12 @@
 		"category": "Wardrobe with 2 sliding doors",
 		"material": "120x197 cm red",
 		"features": [
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend urna sit amet elementum rutrum.",
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend urna sit amet elementum rutrum.",
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend urna sit amet elementum rutrum.",
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend urna sit amet elementum rutrum."
+			"Solid wood has a natural feel.",
+			"A cabinet with panel and glass doors can both display and hide away your things, according to your needs.",
+			"The door's integrated dampers enable it to close slowly, silently and softly.",
+			"Hinges with snap-on function are easy to fit without screws.",
+			"The shelves are adjustable so you can customise your storage as needed.",
+			"You can hide multiple sockets under the removable bottom shelf, for instance."
 		],
 		"price": 699,
 		"color": "0x000000",
@@ -40,7 +42,9 @@
 		"name": "ODDVALD",
 		"category": "Table combination",
 		"material": "L150xD75xH70cm\nwhite/black stained",
-		"features": [],
+		"features": [
+			"Solid wood is a durable natural material."
+		],
 		"price": 79,
 		"color": "0x000000",
 		"opacity": 0.25,

@@ -17,6 +17,10 @@ canvas, #overlay, #intro {
 	z-index: 1;
 }
 
+.logo {
+	cursor: pointer;
+}
+
 #intro {
 	width: 100%;
 	height: 100%;
@@ -31,14 +35,24 @@ canvas, #overlay, #intro {
 	display: inline-block;
 }
 
+#intro h1{
+	font-size: 72px;
+	margin-top: 0px;
+}
+
+#intro h3{
+	font-size: 32px;
+}
+
 #intro > button {
 	color: white;
 	background: none;
-	padding: 16px 64px;
+	padding: 16px 90px;
 	border: 2px solid white;
-	border-radius: 16px;
+	border-radius: 60px;
 	transition: color .4s, background .4s;
 	cursor: pointer;
+	font-size: 24px;
 }
 
 #intro > button:hover {
@@ -82,7 +96,7 @@ li:before {
 }
 
 #topbar img {
-	width: 208px;
+	width: 199px;
 	height: 35px;
 }
 
@@ -94,6 +108,7 @@ li:before {
 
 #topbar h4 {
 	margin-left: 20px;
+	font-size: 18px;
 }
 
 #topbar .room {
@@ -109,6 +124,7 @@ li:before {
 	flex: 0 1 320px;
 	background: white;
 	padding: 16px;
+	overflow: scroll;
 }
 
 #sidebar-close {
