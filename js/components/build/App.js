@@ -65,7 +65,7 @@ App.Viewer = React.createClass({
 	dragging: false,
 	isMousingOverObject: false,
 	getInitialState: function getInitialState() {
-		return { roomIndex: 1 };
+		return { roomIndex: 0 };
 	},
 	componentDidMount: function componentDidMount() {
 		this.refs.overlay.resize();
