@@ -38,7 +38,7 @@
 	},
 	{
 		"type": "navigation",
-		"destination": "living room",
+		"destination": "Living Room",
 		"position": {
 			"x": 500,
 			"y": -200,

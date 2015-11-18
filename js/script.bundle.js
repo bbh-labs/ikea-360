@@ -46,13 +46,14 @@
 
 	'use strict';
 
-	var rooms = ['living room', 'kitchen', 'bedroom'];
+	var rooms = ['Living Room', 'Kitchen', 'Bedroom'];
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var $ = __webpack_require__(159);
 	var Flux = __webpack_require__(160);
 	var dispatcher = new Flux.Dispatcher();
+	var cx = __webpack_require__(163);
 
 	var arrow;
 	var objLoader = new THREE.OBJLoader();
@@ -69,7 +70,8 @@
 				'div',
 				{ ref: 'container' },
 				React.createElement('canvas', { id: 'canvas' }),
-				React.createElement(App.Overlay, { room: this.state.roomIndex, ref: 'overlay' })
+				React.createElement(App.Overlay, { room: this.state.roomIndex, ref: 'overlay' }),
+				React.createElement(App.Intro, { ref: 'intro' })
 			);
 		},
 		lon: 0,
@@ -83,9 +85,7 @@
 			return { roomIndex: 1 };
 		},
 		componentDidMount: function componentDidMount() {
-			this.refs.overlay = this.refs.overlay;
-			overlay.style.width = window.innerWidth + 'px';
-			overlay.style.height = window.innerHeight + 'px';
+			this.refs.overlay.resize();
 
 			this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);
 			this.camera.target = new THREE.Vector3(0, 0, 0);
@@ -103,28 +103,21 @@
 			document.addEventListener('mousedown', this.onDocumentMouseDown, false);
 			document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 			document.addEventListener('mouseup', this.onDocumentMouseUp, false);
-			document.addEventListener('mousewheel', this.onDocumentMouseWheel, false);
+			//document.addEventListener('mousewheel', this.onDocumentMouseWheel, false);
+			document.addEventListener('dblclick', this.onDocumentMouseDblClick, false);
 			document.addEventListener('MozMousePixelScroll', this.onDocumentMouseWheel, false);
 
 			this.listenerID = dispatcher.register((function (payload) {
 				switch (payload.type) {
-					case 'left':
-						var roomIndex = this.state.roomIndex;
-						roomIndex--;
-						if (roomIndex < 0) {
-							roomIndex = rooms.length - 1;
+					case 'gotoRoom':
+						var index = rooms.indexOf(payload.room);
+						if (index >= 0) {
+							this.setState({ roomIndex: index });
 						}
-						this.setState({ roomIndex: roomIndex });
-						break;
-					case 'right':
-						var roomIndex = this.state.roomIndex;
-						roomIndex = (roomIndex + 1) % rooms.length;
-						this.setState({ roomIndex: roomIndex });
 						break;
 				}
 			}).bind(this));
 
-			console.log(rooms[this.state.roomIndex]);
 			this.load(rooms[this.state.roomIndex]);
 			this.animate();
 		},
@@ -139,8 +132,7 @@
 			this.camera.updateProjectionMatrix();
 
 			this.renderer.setSize(window.innerWidth, window.innerHeight);
-			this.refs.overlay.style.width = window.innerWidth + 'px';
-			this.refs.overlay.style.height = window.innerHeight + 'px';
+			this.refs.overlay.resize();
 		},
 		onWindowMouseMove: function onWindowMouseMove(event) {
 			this.mouse.x = event.clientX / window.innerWidth * 2 - 1;
@@ -156,21 +148,6 @@
 
 			this.onPointerDownLon = this.lon;
 			this.onPointerDownLat = this.lat;
-
-			this.raycaster.setFromCamera(this.mouse, this.camera);
-			var intersects = this.raycaster.intersectObjects(this.scene.children, true).map(function (val) {
-				return val.object;
-			});
-
-			for (var i in intersects) {
-				if (intersects[i].name == 'navigation') {
-					this.setState({ roomIndex: rooms.indexOf(intersects[i].destination) });
-					break;
-				} else if (intersects[i].name == 'product') {
-					dispatcher.dispatch({ type: 'clickedProduct', product: intersects[i].product });
-					break;
-				}
-			}
 		},
 		onDocumentMouseMove: function onDocumentMouseMove(event) {
 			if (this.isUserInteracting === true) {
@@ -194,6 +171,22 @@
 					}
 
 			this.camera.updateProjectionMatrix();
+		},
+		onDocumentMouseDblClick: function onDocumentMouseDblClick(event) {
+			this.raycaster.setFromCamera(this.mouse, this.camera);
+			var intersects = this.raycaster.intersectObjects(this.scene.children, true).map(function (val) {
+				return val.object;
+			});
+
+			for (var i in intersects) {
+				if (intersects[i].name == 'navigation') {
+					this.setState({ roomIndex: rooms.indexOf(intersects[i].destination) });
+					break;
+				} else if (intersects[i].name == 'product') {
+					dispatcher.dispatch({ type: 'clickedProduct', product: intersects[i].product });
+					break;
+				}
+			}
 		},
 		animate: function animate() {
 			requestAnimationFrame(this.animate);
@@ -286,7 +279,7 @@
 
 			this.geometry = new THREE.SphereGeometry(10000, 60, 40);
 			this.geometry.scale(-1, 1, 1);
-			this.material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/' + name + '.jpg') });
+			this.material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/panoramas/' + name + '.jpg') });
 			this.mesh = new THREE.Mesh(this.geometry, this.material);
 			this.scene.add(this.mesh);
 		},
@@ -396,10 +389,15 @@
 		render: function render() {
 			return React.createElement(
 				'div',
-				{ id: 'overlay', className: 'flex row' },
+				{ id: 'overlay', ref: 'overlay', className: 'flex row' },
 				React.createElement(App.Topbar, { room: this.props.room }),
 				React.createElement(App.Sidebar, null)
 			);
+		},
+		resize: function resize() {
+			var overlay = this.refs.overlay;
+			overlay.style.width = window.innerWidth + 'px';
+			overlay.style.height = window.innerHeight + 'px';
 		}
 	});
 
@@ -407,49 +405,22 @@
 		displayName: 'Topbar',
 
 		render: function render() {
-			var center = this.props.room;
-			var left = center - 1 >= 0 ? center - 1 : rooms.length - 1;
-			var right = (center + 1) % rooms.length;
 			return React.createElement(
 				'div',
-				{ id: 'topbar-container' },
-				React.createElement(
-					'div',
-					{ id: 'topbar' },
-					React.createElement('img', { src: 'images/ikea360_logo.png', alt: 'ikea logo' }),
-					React.createElement(
+				{ id: 'topbar' },
+				React.createElement('img', { src: 'images/ikea360_logo.png', alt: 'ikea logo' }),
+				rooms.map((function (room, i) {
+					var active = rooms[this.props.room] == room;
+					return React.createElement(
 						'h4',
-						null,
-						'Kitchen'
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Bedroom'
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Living Room'
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Bathroom'
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Storage'
-					)
-				)
+						{ key: i, className: cx('room', active && 'active'), onClick: this.changeRoom.bind(this, room) },
+						room
+					);
+				}).bind(this))
 			);
 		},
-		handleLeft: function handleLeft(event) {
-			dispatcher.dispatch({ type: 'left' });
-		},
-		handleRight: function handleRight(event) {
-			dispatcher.dispatch({ type: 'right' });
+		changeRoom: function changeRoom(room) {
+			dispatcher.dispatch({ type: 'gotoRoom', room: room });
 		}
 	});
 
@@ -522,6 +493,38 @@
 			event.preventDefault();
 
 			this.setState({ product: null });
+		}
+	});
+
+	App.Intro = React.createClass({
+		displayName: 'Intro',
+
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ id: 'intro', ref: 'intro', className: cx('flex column align-center justify-center', this.state.disabled && 'disabled') },
+				React.createElement(
+					'h3',
+					null,
+					'Welcome to'
+				),
+				React.createElement(
+					'h1',
+					null,
+					'IKEA FIRST 360 STORE'
+				),
+				React.createElement(
+					'button',
+					{ onClick: this.disableIntro },
+					'Start'
+				)
+			);
+		},
+		getInitialState: function getInitialState() {
+			return { disabled: false };
+		},
+		disableIntro: function disableIntro() {
+			this.setState({ disabled: true });
 		}
 	});
 
@@ -29634,6 +29637,60 @@
 
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
 
 /***/ }
 /******/ ]);

@@ -98,7 +98,7 @@
 	},
 	{
 		"type": "navigation",
-		"destination": "kitchen",
+		"destination": "Kitchen",
 		"position": {
 			"x": 0,
 			"y": -200,

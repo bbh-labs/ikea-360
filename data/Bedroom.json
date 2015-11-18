@@ -1,7 +1,7 @@
 [
 	{
 		"type": "navigation",
-		"destination": "kitchen",
+		"destination": "Kitchen",
 		"position": {
 			"x": 400,
 			"y": -200,
