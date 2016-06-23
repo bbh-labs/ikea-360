@@ -1,0 +1,122 @@
+[
+	{
+		"type": "product",
+		"name": "NYFORS",
+		"category": "Lamp",
+		"material": "High Gloss Silver",
+		"features": [
+			"Capacity: 350 litres",
+			"Deo-Fresh",
+			"Multi Air Flow",
+			"FlexStore",
+			"Door Alarm"
+		],
+		"price": 79,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 110,
+			"height": 100,
+			"depth": 100
+		},
+		"position": {
+			"x": -420,
+			"y": -125,
+			"z": -195
+		},
+		"rotateY": 1.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": -400,
+				"y": -135,
+				"z": -150
+			},
+			"rotateY": 1.05
+		}
+	},
+	{
+		"type": "product",
+		"name": "PAX/UGGDAL/AULI",
+		"category": "Wardrobe with sliding doors",
+		"material": "W150xD66xH236 cm",
+		"features": [
+			"Black brown/grey-glass/mirror glass",
+			"PAX sliding doors demand less space when open than a standard wardrobe door."
+		],
+		"price": 1195,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 166,
+			"height": 100,
+			"depth": 209
+		},
+		"position": {
+			"x": -100,
+			"y": -100,
+			"z": -150
+		},
+		"rotateY": 1.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": 30,
+				"y": -50,
+				"z": 180
+			},
+			"rotateY": -2.09
+		}
+	},
+	{
+		"type": "product",
+		"name": "MALM, ottoman",
+		"category": "Bed frame",
+		"material": "W166xL209xH100 cm",
+		"features": [
+			"Black brown",
+			"Under the slated base, which can be lifted from the side, hides a practical storage space."
+		],
+		"price": 849,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 150,
+			"height": 236,
+			"depth": 66
+		},
+		"position": {
+			"x": 20,
+			"y": -50,
+			"z": 180
+		},
+		"rotateY": 1.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": -100,
+				"y": -100,
+				"z": -140
+			},
+			"rotateY": 1.05
+		}
+	},
+	{
+		"type": "navigation",
+		"destination": "Kitchen",
+		"position": {
+			"x": 400,
+			"y": -200,
+			"z": 200
+		},
+		"scale": {
+			"x": 25,
+			"y": 25,
+			"z": 25
+		},
+		"rotateY": -1.57
+	}
+]

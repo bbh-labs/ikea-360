@@ -1,0 +1,151 @@
+body {
+	background-color: #000000;
+	margin: 0px;
+	overflow: hidden;
+	font-family:"Verdana", Geneva, sans-serif;
+}
+
+#container {
+	position: relative;
+}
+
+canvas, #overlay, #intro {
+	position: absolute;
+}
+
+#overlay {
+	z-index: 1;
+}
+
+.logo {
+	cursor: pointer;
+}
+
+#intro {
+	width: 100%;
+	height: 100%;
+	background: url(../images/ikeastore_bg.jpg) center / cover;
+	z-index: 2;
+	color: white;
+	opacity: 1;
+	transition: opacity .4s;
+}
+
+#intro > * {
+	display: inline-block;
+}
+
+#intro h1{
+	font-size: 72px;
+	margin-top: 0px;
+}
+
+#intro h3{
+	font-size: 32px;
+}
+
+#intro > button {
+	color: white;
+	background: none;
+	padding: 16px 90px;
+	border: 2px solid white;
+	border-radius: 60px;
+	transition: color .4s, background .4s;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+#intro > button:hover {
+	color: black;
+	background: white;
+}
+
+#intro.disabled {
+	pointer-events: none;
+	opacity: 0;
+}
+
+ul {
+    margin: 0.75em 0;
+    padding: 0 1em;
+    list-style: none;
+}
+
+li:before { 
+    content: "";
+    border-color: transparent #111;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+
+#topbar {
+	position: absolute;
+	width: 100%;
+	padding: 16px;
+	color: #fffff1;
+	text-align: left;
+}
+
+#topbar > * {
+	display: inline-block;
+}
+
+#topbar img {
+	width: 199px;
+	height: 35px;
+}
+
+#topbar h1 {
+	font-size: 32px;
+	text-transform: uppercase;
+	margin: 10px 10px;
+}
+
+#topbar h4 {
+	margin-left: 20px;
+	font-size: 18px;
+}
+
+#topbar .room {
+	color: #c0c0c0;
+	cursor: pointer;
+}
+
+#topbar .room.active {
+	color: #fffff1;
+}
+
+#sidebar {
+	position: absolute;
+	width: 320px;
+	height: 100%;
+	background: white;
+	padding: 16px;
+<<<<<<< HEAD
+	overflow: scroll;
+=======
+	right: 0;
+>>>>>>> master
+}
+
+#sidebar-close {
+	float: right;
+	cursor: pointer;
+}
+
+#bottombar .map {
+	position: absolute;
+	height: 250px;
+	margin: 16px;
+	right: 0;
+}
+
+.pointer {
+	cursor: pointer;
+}

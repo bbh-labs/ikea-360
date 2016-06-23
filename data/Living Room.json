@@ -1,0 +1,118 @@
+[
+	{
+		"type": "product",
+		"name": "HEMNES",
+		"category": "Wardrobe with 2 sliding doors",
+		"material": "120x197 cm red",
+		"features": [
+			"Solid wood has a natural feel.",
+			"A cabinet with panel and glass doors can both display and hide away your things, according to your needs.",
+			"The door's integrated dampers enable it to close slowly, silently and softly.",
+			"Hinges with snap-on function are easy to fit without screws.",
+			"The shelves are adjustable so you can customise your storage as needed.",
+			"You can hide multiple sockets under the removable bottom shelf, for instance."
+		],
+		"price": 699,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 120,
+			"height": 197,
+			"depth": 50
+		},
+		"position": {
+			"x": 15,
+			"y": -60,
+			"z": 120
+		},
+		"rotateY": 0.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": 45,
+				"y": -60,
+				"z": 110
+			},
+			"rotateY": 3.14
+		}
+	},
+	{
+		"type": "product",
+		"name": "ODDVALD",
+		"category": "Table combination",
+		"material": "L150xD75xH70cm\nwhite/black stained",
+		"features": [
+			"Solid wood is a durable natural material."
+		],
+		"price": 79,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 150,
+			"height": 70,
+			"depth": 75
+		},
+		"position": {
+			"x": -140,
+			"y": -120,
+			"z": 100
+		},
+		"rotateY": 0.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": -130,
+				"y": -160,
+				"z": 80
+			},
+			"rotateY": 3.14
+		}
+	},
+	{
+		"type": "product",
+		"name": "GODVIN",
+		"category": "Table combination",
+		"material": "L100xD60xH73cm\nwhite",
+		"features": [],
+		"price": 55,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 74,
+			"height": 66,
+			"depth": 120
+		},
+		"position": {
+			"x": -11,
+			"y": -135,
+			"z": -105
+		},
+		"rotateY": -0.01,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": -43,
+				"y": -135,
+				"z": -45
+			}
+		}
+	},
+	{
+		"type": "navigation",
+		"destination": "Kitchen",
+		"position": {
+			"x": 0,
+			"y": -200,
+			"z": -400
+		},
+		"scale": {
+			"x": 25,
+			"y": 25,
+			"z": 25
+		},
+		"rotateY": 1.570796
+	}
+]

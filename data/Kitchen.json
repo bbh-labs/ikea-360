@@ -1,0 +1,104 @@
+[
+	{
+		"type": "product",
+		"name": "ETB3502PE",
+		"category": "2-Door Refrigerator",
+		"material": "High Gloss Silver",
+		"features": [
+			"Capacity: 350 litres",
+			"Deo-Fresh",
+			"Multi Air Flow",
+			"FlexStore",
+			"Door Alarm"
+		],
+		"price": 799,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 120,
+			"height": 270,
+			"depth": 70
+		},
+		"position": {
+			"x": 325,
+			"y": -105,
+			"z": 125
+		},
+		"rotateY": 0.05,
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": 400,
+				"y": -150,
+				"z": 50
+			},
+			"rotateY": -1.57
+		}
+	},
+	{
+		"type": "product",
+		"name": "METOD/TINGSRYD",
+		"category": "Kitchen",
+		"material": "High Gloss Silver",
+		"features": [
+			"Capacity: 350 litres",
+			"Deo-Fresh",
+			"Multi Air Flow",
+			"FlexStore",
+			"Door Alarm"
+		],
+		"price": 7293,
+		"color": "0x000000",
+		"opacity": 0.25,
+		"transparent": true,
+		"dimension": {
+			"width": 300,
+			"height": 270,
+			"depth": 70
+		},
+		"position": {
+			"x": 25,
+			"y": -105,
+			"z": 153
+		},
+		"label": {
+			"color": "0xfffff1",
+			"position": {
+				"x": 75,
+				"y": -125,
+				"z": 100
+			},
+			"rotateY": 3.141592
+		}
+	},
+	{
+		"type": "navigation",
+		"destination": "Living Room",
+		"position": {
+			"x": 500,
+			"y": -200,
+			"z": -50
+		},
+		"scale": {
+			"x": 25,
+			"y": 25,
+			"z": 25
+		}
+	},
+	{
+		"type": "navigation",
+		"destination": "Bedroom",
+		"position": {
+			"x": 0,
+			"y": -200,
+			"z": -250
+		},
+		"scale": {
+			"x": 25,
+			"y": 25,
+			"z": 25
+		},
+		"rotateY": 1.57
+	}
+]
